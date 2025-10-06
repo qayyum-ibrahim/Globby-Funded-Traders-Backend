@@ -12,6 +12,8 @@ exports.sendEmail = async (req, res) => {
       password,
       email, // still needed for challenge_passed
       htmlContent,
+      usd,
+      ngn,
     } = req.body;
 
     if (!emails || !Array.isArray(emails) || emails.length === 0) {
@@ -47,6 +49,13 @@ exports.sendEmail = async (req, res) => {
           return res
             .status(400)
             .json({ message: "Email is required for challenge_passed" });
+        }
+        break;
+      case "withdrawal":
+        if (!usd || !ngn) {
+          return res
+            .status(400)
+            .json({ message: "USD and NGN are required for withdrawal" });
         }
         break;
 
